@@ -5,7 +5,9 @@ import matplotlib.pyplot as plt
 from scipy.stats import shapiro, pearsonr
 import os
 
+
 # ПАРАМЕТРИ МОДЕЛЮВАННЯ
+
 T = 1.0
 DT = 0.01
 K = 150                    # кількість реалізацій для оцінки середнього та дисперсії
@@ -21,7 +23,9 @@ rng = np.random.default_rng(SEED)
 t_grid = np.arange(0.0, T + DT, DT)
 
 
+
 # ДОПОМІЖНІ ФУНКЦІЇ
+
 def shapiro_test(x: np.ndarray, max_size: int = 5000) -> tuple[float, float]:
     x = np.asarray(x).ravel()
     if x.size > max_size:
@@ -82,7 +86,9 @@ def print_header(text: str) -> None:
     print("=" * 90)
 
 
+
 # РОЗКЛАД W1(M, t)
+
 def prepare_w1_basis(M: int, t: np.ndarray) -> np.ndarray:
     k = np.arange(1, M + 1, dtype=float)
     coeff = np.sqrt(2.0) / (np.pi * (k - 0.5))
@@ -99,7 +105,9 @@ def simulate_w1(prepared_basis: np.ndarray, rng: np.random.Generator,
     return path, eta
 
 
+
 # РОЗКЛАД W2(M, t)
+
 def prepare_w2_basis(M: int, t: np.ndarray) -> np.ndarray:
     i = np.arange(1, M + 1, dtype=float)
     basis = np.sqrt(2.0) * np.sin(np.pi * np.outer(i, t)) / (np.pi * i)[:, None]
@@ -117,7 +125,9 @@ def simulate_w2(prepared_basis: np.ndarray, t: np.ndarray, rng: np.random.Genera
     return path, eta0, eta
 
 
+
 # РОЗКЛАД W3(M, t)
+
 def prepare_w3_basis(M: int, t: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     i = np.arange(1, M + 1, dtype=float)
     sin_part = np.sqrt(2.0) * np.sin(2.0 * np.pi * np.outer(i, t)) / (2.0 * np.pi * i)[:, None]
@@ -142,7 +152,9 @@ def simulate_w3(prepared_basis: tuple[np.ndarray, np.ndarray], t: np.ndarray,
     return path, eta0, eta1, eta2
 
 
+
 # ЗАВДАННЯ 1
+
 def task1():
     print_header("ЗАВДАННЯ 1. МОДЕЛЮВАННЯ W1(M,t) ДЛЯ M = 1000, 3000, 10000")
 
@@ -178,7 +190,9 @@ def task1():
         )
 
 
+
 # ЗАВДАННЯ 2
+
 def task2():
     print_header("ЗАВДАННЯ 2. МОДЕЛЮВАННЯ W3(M,t)")
 
@@ -219,7 +233,9 @@ def task2():
     )
 
 
+
 # ЗАВДАННЯ 3
+
 def task3():
     print_header("ЗАВДАННЯ 3. МОДЕЛЮВАННЯ W2(M,t)")
 
@@ -255,7 +271,9 @@ def task3():
     return prepared_w2
 
 
+
 # ПОРІВНЯННЯ W1, W2, W3
+
 def compare_all_three():
     print_header("ПОРІВНЯННЯ РЕАЛІЗАЦІЙ W1, W2, W3")
 
@@ -286,7 +304,9 @@ def compare_all_three():
     print(f"  [збережено] {save_path}")
 
 
+
 # ГОЛОВНИЙ БЛОК
+
 if __name__ == "__main__":
     task1()
     task2()
